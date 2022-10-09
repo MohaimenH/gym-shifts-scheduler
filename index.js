@@ -364,9 +364,9 @@ grid.forEach((day, i) => {
     });
 });
 
-for (let i = 0; i < grid.length; i++) {
-    console.log(`${days[i]}:`, ...grid[i]);
-}
+// for (let i = 0; i < grid.length; i++) {
+//     console.log(`${days[i]}:`, ...grid[i]);
+// }
 
 console.log(details);
 
