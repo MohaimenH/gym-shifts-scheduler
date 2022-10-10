@@ -3,6 +3,8 @@ window.onbeforeunload = function (event) {
     return confirm("Confirm refresh - you will lose all data on the page!");
 };
 
+const allocationStats = document.querySelector("#allocation-stats");
+
 const createAttendant = (name, requests) => {
     return {
         name,
@@ -416,6 +418,8 @@ let sampleAttendantsInput = [
 const resultTextBox = document.getElementById("allocation-result");
 
 const allocateShifts = (listOfAttendants, textbox) => {
+    allocationStats.value = "";
+
     let grid = [
         //  5:45-10, 10-2, 12-5, 2-6, 5-10:15, 6-10:15
         [
@@ -615,9 +619,30 @@ const allocateShifts = (listOfAttendants, textbox) => {
                 return;
             }
 
+            switch (i) {
+                case 0:
+                    availableAttendant.request[0][2] = false;
+                    availableAttendant.request[0][3] = false;
+                    availableAttendant.request[0][4] = false;
+                    availableAttendant.request[0][5] = false;
+                    break;
+                case 1:
+                    availableAttendant.request[2][2] = false;
+                    availableAttendant.request[2][3] = false;
+                    availableAttendant.request[2][4] = false;
+                    availableAttendant.request[2][5] = false;
+                    break;
+                case 2:
+                    availableAttendant.request[3][2] = false;
+                    availableAttendant.request[3][3] = false;
+                    availableAttendant.request[3][4] = false;
+                    availableAttendant.request[3][5] = false;
+                    break;
+            }
+
             availableAttendant.shifts++;
             availableAttendant.hours += shift.duration;
-
+            console.log(availableAttendant.request);
             textbox.value += `\n${shift.time}: ${availableAttendant.name}`;
         });
     });
@@ -653,21 +678,31 @@ const allocateShifts = (listOfAttendants, textbox) => {
                 }
             } else {
                 switch (j) {
-                    case 1 || 2:
+                    case 1:
                         eligibleAttendant.request[i][1] = false;
                         eligibleAttendant.request[i][2] = false;
-                    case 2 || 3:
+                        break;
+                    case 2:
+                        eligibleAttendant.request[i][1] = false;
                         eligibleAttendant.request[i][2] = false;
                         eligibleAttendant.request[i][3] = false;
-                    case 3 || 4:
+                        break;
+                    case 3:
+                        eligibleAttendant.request[i][2] = false;
                         eligibleAttendant.request[i][3] = false;
                         eligibleAttendant.request[i][4] = false;
-                    case 4 || 5:
+                        break;
+                    case 4:
+                        eligibleAttendant.request[i][3] = false;
+                        eligibleAttendant.request[i][4] = false;
+                        eligibleAttendant.request[i][5] = false;
+                        break;
+                    case 5:
                         eligibleAttendant.request[i][4] = false;
                         eligibleAttendant.request[i][5] = false;
                 }
             }
-
+            console.log(eligibleAttendant.request);
             // console.log(dynamicAttendantsList[eligibleAttendant][i]);
 
             eligibleAttendant.shifts++;
@@ -694,4 +729,8 @@ const allocateShifts = (listOfAttendants, textbox) => {
             };
         })
     );
+
+    attendants.forEach((attendant) => {
+        allocationStats.value += `\nName: ${attendant.name}, Hours: ${attendant.hours}, Shifts: ${attendant.shifts}`;
+    });
 };

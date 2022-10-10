@@ -15,6 +15,11 @@
             Use the form below to add attendants and their shift requests. Then
             click on 'Allocate Shifts' to get a output.
         </h4>
+        <h4>
+            The first box on the bottom will print out all the shift assignments
+            and the second box will give stats regarding the assignments. You
+            might need to scroll all the way down to see both boxes.
+        </h4>
         <div class="flex-container">
             <form>
                 <label for="nameField" id="name">Name: </label>
@@ -351,6 +356,10 @@
         <textarea
             placeholder="The output will go here..."
             id="allocation-result"
+        ></textarea>
+        <textarea
+            placeholder="The stats will go here..."
+            id="allocation-stats"
         ></textarea>
     </body>
 </html>
