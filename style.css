@@ -2,6 +2,60 @@ html {
     /* background-color: slategray; */
 }
 
+form {
+    margin: 30px 5px;
+}
+
+h3 {
+    margin-top: 0;
+    padding-top: 0;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    text-align: left;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+}
+
+tr {
+    border: 1px solid black;
+}
+
+button {
+    font-size: 20px;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.table-divider {
+    border-top: 4px solid black;
+}
+
+#name {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+#add-attendant-btn {
+    font-size: 20px;
+}
+
+#attendants-box {
+    margin-left: 20px;
+    width: 45%;
+    margin-top: 110px;
+    height: 410px;
+}
+
 #allocation-result {
     width: 100%;
     height: 200px;

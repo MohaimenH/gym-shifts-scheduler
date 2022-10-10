@@ -4,25 +4,353 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Fitness Centre Attendant Shift Allocator</title>
+        <title>Fitness Centre Shift Allocator</title>
         <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
         <script src="script.js" defer></script>
         <link href="style.css" rel="stylesheet" />
     </head>
     <body>
-        <h1>Fitness Centre Atttendant Shift Allocator</h1>
+        <h1>Fitness Centre Shift Allocator</h1>
         <h4>
             Use the form below to add attendants and their shift requests. Then
-            click on calculate to get a output.
-        </h2>
-        <form>
-            <label for="name">Name: </label>
-            <input type="text" name="fname"><br><br>
-            <input type="checkbox" name="womensOnlyCheckbox">
-            <label for="womensOnlyCheckbox">Eligible For Women's Only Shifts?</label><br><br>
-            <input type="submit" value="Add Attendant">
-        </form><br>
-        <textarea placeholder="Added attendants' will go here..." id="attendants-box"></textarea><br>
-        <textarea placeholder="The output will go here..." id="allocation-result"></textarea>
+            click on 'Allocate Shifts' to get a output.
+        </h4>
+        <div class="flex-container">
+            <form>
+                <label for="nameField" id="name">Name: </label>
+                <input
+                    type="text"
+                    name="nameField"
+                    id="nameField"
+                    required
+                /><br /><br />
+                <h3>Requested Shifts:</h3>
+                <table>
+                    <tr>
+                        <th>Slots</th>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                        <th>Saturday</th>
+                        <th>Sunday</th>
+                    </tr>
+                    <tr>
+                        <td>5:45AM-10AM</td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="monday54510"
+                                id="monday54510"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="tuesday54510"
+                                id="tuesday54510"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="wednesday54510"
+                                id="wednesday54510"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="thursday54510"
+                                id="thursday54510"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="friday54510"
+                                id="friday54510"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>10AM-2PM</td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="monday102"
+                                id="monday102"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="tuesday102"
+                                id="tuesday102"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="wednesday102"
+                                id="wednesday102"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="thursday102"
+                                id="thursday102"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="friday102"
+                                id="friday102"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>12PM-5PM</td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="monday125"
+                                id="monday125"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="tuesday125"
+                                id="tuesday125"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="wednesday125"
+                                id="wednesday125"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="thursday125"
+                                id="thursday125"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="friday125"
+                                id="friday125"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2PM-6PM</td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="monday26"
+                                id="monday26"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="tuesday26"
+                                id="tuesday26"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="wednesday26"
+                                id="wednesday26"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="thursday26"
+                                id="thursday26"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="friday26"
+                                id="friday26"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>5PM-10:15PM</td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="monday51015"
+                                id="monday51015"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="tuesday51015"
+                                id="tuesday51015"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="wednesday51015"
+                                id="wednesday51015"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="thursday51015"
+                                id="thursday51015"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="friday51015"
+                                id="friday51015"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>6PM-10:15PM</td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="monday61015"
+                                id="monday61015"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="tuesday61015"
+                                id="tuesday61015"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="wednesday61015"
+                                id="wednesday61015"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="thursday61015"
+                                id="thursday61015"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="friday61015"
+                                id="friday61015"
+                            />
+                        </td>
+                    </tr>
+                    <tr class="table-divider">
+                        <td>8:45AM-6:15PM</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="saturday845615"
+                                id="saturday845615"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="sunday845615"
+                                id="sunday845615"
+                            />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>11AM-6:15PM</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="saturday11615"
+                                id="saturday11615"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="sunday11615"
+                                id="sunday11615"
+                            />
+                        </td>
+                    </tr>
+                    <tr class="table-divider">
+                        <td>Women's Only (3:45-7:15PM)</td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="mondaywo"
+                                id="mondaywo"
+                            />
+                        </td>
+                        <td></td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="wednesdaywo"
+                                id="wednesdaywo"
+                            />
+                        </td>
+                        <td>
+                            <input
+                                type="checkbox"
+                                name="thursdaywo"
+                                id="thursdaywo"
+                            />
+                        </td>
+                    </tr>
+                </table>
+                <br /><br />
+                <input
+                    type="submit"
+                    id="add-attendant-btn"
+                    value="Add Attendant"
+                />
+                <button id="allocate-shifts-btn">Allocate Shifts</button>
+            </form>
+            <textarea
+                placeholder="Added attendants' will go here..."
+                id="attendants-box"
+            ></textarea>
+        </div>
+        <br />
+        <textarea
+            placeholder="The output will go here..."
+            id="allocation-result"
+        ></textarea>
     </body>
 </html>

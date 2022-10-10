@@ -1,15 +1,108 @@
 // import _ from "lodash";
+window.onbeforeunload = function (event) {
+    return confirm("Confirm refresh - you will lose all data on the page!");
+};
 
-const createAttendant = (name, request, womensOnly) => {
+const createAttendant = (name, requests) => {
     return {
         name,
-        request,
-        womensOnly,
+        ...requests,
         score: 0,
         shifts: 0,
         hours: 0,
     };
 };
+
+const a = (id) => {
+    return document.getElementById(id).checked;
+};
+
+const createRequests = () => {
+    return {
+        request: [
+            [
+                a("monday54510"),
+                a("monday102"),
+                a("monday125"),
+                a("monday26"),
+                a("monday51015"),
+                a("monday61015"),
+            ],
+            [
+                a("tuesday54510"),
+                a("tuesday102"),
+                a("tuesday125"),
+                a("tuesday26"),
+                a("tuesday51015"),
+                a("tuesday61015"),
+            ],
+            [
+                a("wednesday54510"),
+                a("wednesday102"),
+                a("wednesday125"),
+                a("wednesday26"),
+                a("wednesday51015"),
+                a("wednesday61015"),
+            ],
+            [
+                a("thursday54510"),
+                a("thursday102"),
+                a("thursday125"),
+                a("thursday26"),
+                a("thursday51015"),
+                a("thursday61015"),
+            ],
+            [
+                a("friday54510"),
+                a("friday102"),
+                a("friday125"),
+                a("friday26"),
+                a("friday51015"),
+                a("friday61015"),
+            ],
+            [a("saturday845615"), a("saturday11615")],
+            [a("sunday845615"), a("sunday11615")],
+        ],
+        womensOnlyRequest: [
+            [a("mondaywo")],
+            [a("wednesdaywo")],
+            [a("thursdaywo")],
+        ],
+    };
+};
+
+const addAttendantBtn = document.querySelector("#add-attendant-btn");
+const attendantsBox = document.querySelector("#attendants-box");
+const nameField = document.querySelector("#nameField");
+
+let attendantsInput = [];
+
+addAttendantBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if (!String(nameField.value).trim()) {
+        alert('Please type a name in the "Name" field.');
+        return;
+    }
+
+    if (
+        attendantsInput.filter(
+            (attendant) => attendant.name === nameField.value
+        ).length > 0
+    ) {
+        alert("The person already exists in the list");
+        return;
+    }
+
+    attendantsInput.push(createAttendant(nameField.value, createRequests()));
+    attendantsBox.value += `\n${nameField.value}`;
+});
+
+const allocateShiftsBtn = document.querySelector("#allocate-shifts-btn");
+
+allocateShiftsBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    allocateShifts(JSON.parse(JSON.stringify(attendantsInput)), resultTextBox);
+});
 
 let sampleAttendantsInput = [
     {
@@ -26,7 +119,7 @@ let sampleAttendantsInput = [
             [1, 1],
             [1, 1],
         ],
-        womensOnly: true,
+
         womensOnlyRequest: [[1], [1], [1]],
     },
     {
@@ -73,7 +166,6 @@ let sampleAttendantsInput = [
             [1, 1],
             [1, 1],
         ],
-        womensOnly: true,
     },
     {
         name: "Elle",
@@ -89,7 +181,7 @@ let sampleAttendantsInput = [
             [1, 1],
             [1, 1],
         ],
-        womensOnly: true,
+
         womensOnlyRequest: [[1], [1], [1]],
     },
     {
@@ -106,7 +198,6 @@ let sampleAttendantsInput = [
             [1, 1],
             [1, 1],
         ],
-        womensOnly: true,
     },
     {
         name: "Gabe",
@@ -122,7 +213,6 @@ let sampleAttendantsInput = [
             [1, 1],
             [1, 1],
         ],
-        womensOnly: true,
     },
     {
         name: "Holly",
@@ -138,7 +228,7 @@ let sampleAttendantsInput = [
             [1, 1],
             [1, 1],
         ],
-        womensOnly: true,
+
         womensOnlyRequest: [[1], [1], [1]],
     },
     {
@@ -155,7 +245,6 @@ let sampleAttendantsInput = [
             [1, 1],
             [1, 1],
         ],
-        womensOnly: true,
     },
     {
         name: "Jim",
@@ -171,7 +260,6 @@ let sampleAttendantsInput = [
             [1, 1],
             [1, 1],
         ],
-        womensOnly: true,
     },
     {
         name: "Kelly",
@@ -187,7 +275,6 @@ let sampleAttendantsInput = [
             [1, 1],
             [1, 1],
         ],
-        womensOnly: false,
     },
     {
         name: "Lewis",
@@ -203,7 +290,6 @@ let sampleAttendantsInput = [
             [1, 1],
             [1, 1],
         ],
-        womensOnly: true,
     },
     {
         name: "Micheal",
@@ -219,7 +305,6 @@ let sampleAttendantsInput = [
             [1, 1],
             [1, 1],
         ],
-        womensOnly: true,
     },
     {
         name: "Nate",
@@ -235,7 +320,6 @@ let sampleAttendantsInput = [
             [1, 1],
             [1, 1],
         ],
-        womensOnly: true,
     },
     {
         name: "Oscar",
@@ -251,7 +335,6 @@ let sampleAttendantsInput = [
             [1, 1],
             [1, 1],
         ],
-        womensOnly: true,
     },
     {
         name: "Pam",
@@ -267,7 +350,6 @@ let sampleAttendantsInput = [
             [1, 1],
             [1, 1],
         ],
-        womensOnly: true,
     },
     {
         name: "Ryan",
@@ -283,7 +365,6 @@ let sampleAttendantsInput = [
             [1, 1],
             [1, 1],
         ],
-        womensOnly: true,
     },
     {
         name: "Stanley",
@@ -299,7 +380,6 @@ let sampleAttendantsInput = [
             [1, 1],
             [1, 1],
         ],
-        womensOnly: true,
     },
     {
         name: "Toby",
@@ -315,7 +395,6 @@ let sampleAttendantsInput = [
             [1, 1],
             [1, 1],
         ],
-        womensOnly: true,
     },
     {
         name: "Karen",
@@ -331,7 +410,6 @@ let sampleAttendantsInput = [
             [1, 1],
             [1, 1],
         ],
-        womensOnly: true,
     },
 ];
 
@@ -427,7 +505,7 @@ const allocateShifts = (listOfAttendants, textbox) => {
     const getAvailableAttendants = (day, slot, allAttendants) => {
         let eligibleAttendants = [];
         allAttendants.forEach((attendant) => {
-            if (attendant.request[day][slot] === 1) {
+            if (attendant.request[day][slot] === true) {
                 eligibleAttendants.push(attendant);
             }
         });
@@ -439,7 +517,7 @@ const allocateShifts = (listOfAttendants, textbox) => {
         femaleAttendants.forEach((attendant) => {
             if (
                 attendant.womensOnlyRequest &&
-                attendant.womensOnlyRequest[day][slot] === 1
+                attendant.womensOnlyRequest[day][slot] === true
             ) {
                 eligibleAttendants.push(attendant);
             }
@@ -518,16 +596,16 @@ const allocateShifts = (listOfAttendants, textbox) => {
         return result;
     };
 
-    textbox.value = "---Women's Only Shifts---";
+    textbox.value = "====Women's Only Shifts====";
     womensOnlyDays.forEach((day, i) => {
-        textbox.value += `\n${day} Women's Only Shifts: `;
+        textbox.value += `\n\n---${day} Women's Only Shifts---`;
         womensOnlyShifts.forEach((shift, j) => {
             let availableAttendant = pickAvailableAttendant(
                 getAvailableFemaleAttendants(
                     i,
                     j,
                     attendants.filter(
-                        (attendant) => attendant.womensOnly === true
+                        (attendant) => attendant.womensOnlyRequest
                     )
                 )
             );
@@ -546,10 +624,10 @@ const allocateShifts = (listOfAttendants, textbox) => {
 
     console.log("---Regular Shifts---");
 
-    textbox.value += "\n---Regular Shifts---";
+    textbox.value += "\n\n====Regular Shifts====";
     grid.forEach((day, i) => {
         // console.log(`${days[i]} Shifts:`);
-        textbox.value += `\n${days[i]} Shifts: `;
+        textbox.value += `\n\n---${days[i]} Shifts---`;
         let dynamicAttendantsList = _.shuffle(attendants); // JSON.parse(JSON.stringify(requests));
         day.forEach((shift, j) => {
             let eligibleAttendant = pickAvailableAttendant(
@@ -567,21 +645,28 @@ const allocateShifts = (listOfAttendants, textbox) => {
             }
 
             // console.log(dynamicAttendantsList[eligibleAttendant][i]);
-            eligibleAttendant.request[i] = eligibleAttendant.request[i].fill(0);
-            // switch (j) {
-            //     case 1 || 2:
-            //         dynamicAttendantsList[eligibleAttendant][i][1] = 0;
-            //         dynamicAttendantsList[eligibleAttendant][i][2] = 0;
-            //     case 2 || 3:
-            //         dynamicAttendantsList[eligibleAttendant][i][2] = 0;
-            //         dynamicAttendantsList[eligibleAttendant][i][3] = 0;
-            //     case 3 || 4:
-            //         dynamicAttendantsList[eligibleAttendant][i][3] = 0;
-            //         dynamicAttendantsList[eligibleAttendant][i][4] = 0;
-            //     case 4 || 5:
-            //         dynamicAttendantsList[eligibleAttendant][i][4] = 0;
-            //         dynamicAttendantsList[eligibleAttendant][i][5] = 0;
-            // }
+            // eligibleAttendant.request[i] = eligibleAttendant.request[i].fill(0);
+            if (day.length === 2) {
+                if (j === 0 || j === 1) {
+                    eligibleAttendant.request[i][0] = false;
+                    eligibleAttendant.request[i][1] = false;
+                }
+            } else {
+                switch (j) {
+                    case 1 || 2:
+                        eligibleAttendant.request[i][1] = false;
+                        eligibleAttendant.request[i][2] = false;
+                    case 2 || 3:
+                        eligibleAttendant.request[i][2] = false;
+                        eligibleAttendant.request[i][3] = false;
+                    case 3 || 4:
+                        eligibleAttendant.request[i][3] = false;
+                        eligibleAttendant.request[i][4] = false;
+                    case 4 || 5:
+                        eligibleAttendant.request[i][4] = false;
+                        eligibleAttendant.request[i][5] = false;
+                }
+            }
 
             // console.log(dynamicAttendantsList[eligibleAttendant][i]);
 
@@ -610,6 +695,3 @@ const allocateShifts = (listOfAttendants, textbox) => {
         })
     );
 };
-
-allocateShifts(sampleAttendantsInput, resultTextBox);
-// resultTextBox.textContent.
